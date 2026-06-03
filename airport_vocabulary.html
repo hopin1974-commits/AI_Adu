@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>공항 영어 단어장</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── CSS 변수 (라이트 / 다크) ── */
+    :root {
+      --bg-page:       #f0f4ff;
+      --bg-card:       #ffffff;
+      --bg-thead:      #f8fafc;
+      --bg-hover:      #f0f9ff;
+      --border:        #e2e8f0;
+      --border-thead:  #e2e8f0;
+      --text-main:     #1e293b;
+      --text-muted:    #64748b;
+      --text-en:       #1e3a8a;
+      --text-ko:       #374151;
+      --text-example:  #6b7280;
+      --nav-bg:        #ffffff;
+      --nav-link:      #64748b;
+      --nav-shadow:    rgba(0,0,0,0.08);
+      --footer-bg:     #ffffff;
+      --footer-border: #e2e8f0;
+      --footer-text:   #94a3b8;
+      --switch-track:  #cbd5e1;
+      --switch-thumb:  #ffffff;
+      --switch-label:  #475569;
+    }
+
+    [data-theme="dark"] {
+      --bg-page:       #0f172a;
+      --bg-card:       #1e293b;
+      --bg-thead:      #263548;
+      --bg-hover:      #1e3450;
+      --border:        #334155;
+      --border-thead:  #334155;
+      --text-main:     #e2e8f0;
+      --text-muted:    #94a3b8;
+      --text-en:       #93c5fd;
+      --text-ko:       #cbd5e1;
+      --text-example:  #64748b;
+      --nav-bg:        #1e293b;
+      --nav-link:      #94a3b8;
+      --nav-shadow:    rgba(0,0,0,0.4);
+      --footer-bg:     #1e293b;
+      --footer-border: #334155;
+      --footer-text:   #475569;
+      --switch-track:  #3b82f6;
+      --switch-thumb:  #ffffff;
+      --switch-label:  #94a3b8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', 'Inter', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ── 다크모드 스위치 ── */
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 200;
+    }
+
+    .theme-toggle .label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.3px;
+      user-select: none;
+    }
+
+    .switch {
+      position: relative;
+      width: 52px;
+      height: 28px;
+      cursor: pointer;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
+    .switch-track {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.25);
+      border: 1.5px solid rgba(255,255,255,0.4);
+      border-radius: 999px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .switch input:checked + .switch-track {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .switch-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      line-height: 1;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+    }
+
+    .switch input:checked ~ .switch-thumb {
+      transform: translateX(24px);
+    }
+
+    /* ── 헤더 ── */
+    header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 60%, #60a5fa 100%);
+      color: white;
+      text-align: center;
+      padding: 60px 20px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.88;
+      position: relative;
+    }
+
+    /* ── 네비게이션 ── */
+    nav {
+      background: var(--nav-bg);
+      box-shadow: 0 2px 12px var(--nav-shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      overflow-x: auto;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      padding: 0 24px;
+      gap: 4px;
+      min-width: max-content;
+    }
+
+    nav ul li a {
+      display: block;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: var(--nav-link);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+
+    nav ul li a:hover {
+      color: #3b82f6;
+      border-bottom-color: #3b82f6;
+    }
+
+    /* ── 메인 ── */
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    /* ── 섹션 카드 ── */
+    .section-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      overflow: hidden;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    [data-theme="dark"] .section-card {
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 22px 28px;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .section-header .icon { font-size: 1.6rem; line-height: 1; }
+
+    .color-1 { background: linear-gradient(90deg, #1e40af, #3b82f6); }
+    .color-2 { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+    .color-3 { background: linear-gradient(90deg, #065f46, #34d399); }
+    .color-4 { background: linear-gradient(90deg, #9a3412, #fb923c); }
+    .color-5 { background: linear-gradient(90deg, #be185d, #f472b6); }
+    .color-6 { background: linear-gradient(90deg, #0e7490, #22d3ee); }
+    .color-7 { background: linear-gradient(90deg, #3f6212, #84cc16); }
+    .color-8 { background: linear-gradient(90deg, #1e293b, #64748b); }
+
+    /* ── 테이블 ── */
+    .table-wrap { overflow-x: auto; padding: 0 4px 4px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+
+    thead th {
+      padding: 14px 20px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-muted);
+      background: var(--bg-thead);
+      border-bottom: 2px solid var(--border-thead);
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s, border-color 0.3s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--bg-hover); }
+
+    tbody td {
+      padding: 14px 20px;
+      vertical-align: top;
+      transition: color 0.3s;
+    }
+
+    tbody td:nth-child(1) {
+      font-weight: 700;
+      color: var(--text-en);
+      font-family: 'Inter', sans-serif;
+      white-space: nowrap;
+    }
+
+    tbody td:nth-child(2) {
+      color: var(--text-ko);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    tbody td:nth-child(3) {
+      color: var(--text-example);
+      font-style: italic;
+    }
+
+    .section-phrases tbody td:nth-child(1) {
+      font-weight: 600;
+      color: var(--text-main);
+      font-family: 'Noto Sans KR', sans-serif;
+      white-space: nowrap;
+    }
+
+    .section-phrases tbody td:nth-child(2) {
+      font-weight: 600;
+      color: var(--text-en);
+      font-style: normal;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .section-phrases tbody td:nth-child(3) {
+      color: var(--text-example);
+      font-style: normal;
+    }
+
+    /* ── 푸터 ── */
+    footer {
+      text-align: center;
+      padding: 32px 20px;
+      color: var(--footer-text);
+      font-size: 0.85rem;
+      background: var(--footer-bg);
+      border-top: 1px solid var(--footer-border);
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    /* ── 반응형 ── */
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.9rem; }
+      .section-header { padding: 18px 20px; font-size: 1rem; }
+      thead th, tbody td { padding: 10px 14px; }
+      tbody td:nth-child(3) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- 다크모드 스위치 -->
+    <div class="theme-toggle">
+      <span class="label" id="theme-label">라이트 모드</span>
+      <label class="switch" aria-label="다크모드 전환">
+        <input type="checkbox" id="theme-checkbox">
+        <div class="switch-track"></div>
+        <div class="switch-thumb" id="switch-icon">☀️</div>
+      </label>
+    </div>
+
+    <h1>✈️ 공항 영어 단어장</h1>
+    <p>공항에서 자주 쓰이는 영어 표현을 상황별로 정리했습니다</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#checkin">🧳 체크인</a></li>
+      <li><a href="#security">🔍 보안검색</a></li>
+      <li><a href="#boarding">🚪 탑승</a></li>
+      <li><a href="#immigration">🛂 입국심사</a></li>
+      <li><a href="#customs">📦 세관</a></li>
+      <li><a href="#baggage">🎒 수하물</a></li>
+      <li><a href="#facilities">🏢 공항시설</a></li>
+      <li><a href="#phrases">💬 유용한 문장</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <div class="section-card" id="checkin">
+      <div class="section-header color-1">
+        <span class="icon">🧳</span>
+        <span>1. 체크인 &nbsp;<small style="font-weight:400;opacity:.8">Check-in</small></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>영어</th><th>한국어</th><th>예문</th></tr></thead>
+          <tbody>
+            <tr><td>check-in counter</td><td>체크인 카운터</td><td>Where is the check-in counter for Korean Air?</td></tr>
+            <tr><td>boarding pass</td><td>탑승권</td><td>May I see your boarding pass?</td></tr>
+            <tr><td>passport</td><td>여권</td><td>Please show me your passport.</td></tr>
+            <tr><td>reservation / booking</td><td>예약</td><td>I have a reservation under the name Kim.</td></tr>
+            <tr><td>aisle seat</td><td>통로 쪽 좌석</td><td>I'd like an aisle seat, please.</td></tr>
+            <tr><td>window seat</td><td>창문 쪽 좌석</td><td>Can I have a window seat?</td></tr>
+            <tr><td>checked baggage</td><td>위탁 수하물</td><td>How many checked bags are allowed?</td></tr>
+            <tr><td>carry-on baggage</td><td>기내 수하물</td><td>This bag is my carry-on.</td></tr>
+            <tr><td>overweight baggage</td><td>초과 수하물</td><td>Your bag is overweight.</td></tr>
+            <tr><td>baggage allowance</td><td>수하물 허용량</td><td>What is the baggage allowance?</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-card" id="security">
+      <div class="section-header color-2">
+        <span class="icon">🔍</span>
+        <span>2. 보안 검색 &nbsp;<small style="font-weight:400;opacity:.8">Security Check</small></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>영어</th><th>한국어</th><th>예문</th></tr></thead>
+          <tbody>
+            <tr><td>security checkpoint</td><td>보안 검색대</td><td>Please proceed to the security checkpoint.</td></tr>
+            <tr><td>metal detector</td><td>금속 탐지기</td><td>Walk through the metal detector.</td></tr>
+            <tr><td>X-ray machine</td><td>엑스레이 기계</td><td>Put your bag on the X-ray machine belt.</td></tr>
+            <tr><td>remove</td><td>꺼내다 / 벗다</td><td>Please remove your shoes and belt.</td></tr>
+            <tr><td>liquids</td><td>액체류</td><td>All liquids must be in a clear bag.</td></tr>
+            <tr><td>prohibited items</td><td>반입 금지 물품</td><td>Sharp objects are prohibited items.</td></tr>
+            <tr><td>pat-down</td><td>신체 수색</td><td>You will need a pat-down.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-card" id="boarding">
+      <div class="section-header color-3">
+        <span class="icon">🚪</span>
+        <span>3. 탑승 &nbsp;<small style="font-weight:400;opacity:.8">Boarding</small></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>영어</th><th>한국어</th><th>예문</th></tr></thead>
+          <tbody>
+            <tr><td>gate</td><td>탑승구</td><td>Your gate is A12.</td></tr>
+            <tr><td>boarding time</td><td>탑승 시간</td><td>Boarding time is 2:30 PM.</td></tr>
+            <tr><td>departure</td><td>출발</td><td>The departure is on time.</td></tr>
+            <tr><td>delay</td><td>지연</td><td>The flight has been delayed by one hour.</td></tr>
+            <tr><td>final call</td><td>최종 탑승 안내</td><td>This is the final call for flight KE123.</td></tr>
+            <tr><td>overhead bin</td><td>머리 위 짐칸</td><td>Please place your bag in the overhead bin.</td></tr>
+            <tr><td>fasten seatbelt</td><td>안전벨트 착용</td><td>Please fasten your seatbelt.</td></tr>
+            <tr><td>tray table</td><td>접이식 테이블</td><td>Please fold your tray table.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-card" id="immigration">
+      <div class="section-header color-4">
+        <span class="icon">🛂</span>
+        <span>4. 입국 심사 &nbsp;<small style="font-weight:400;opacity:.8">Immigration</small></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>영어</th><th>한국어</th><th>예문</th></tr></thead>
+          <tbody>
+            <tr><td>immigration</td><td>입국 심사</td><td>Please proceed to immigration.</td></tr>
+            <tr><td>purpose of visit</td><td>방문 목적</td><td>What is the purpose of your visit?</td></tr>
+            <tr><td>tourism / sightseeing</td><td>관광</td><td>I'm here for tourism.</td></tr>
+            <tr><td>business trip</td><td>출장</td><td>I'm on a business trip.</td></tr>
+            <tr><td>length of stay</td><td>체류 기간</td><td>How long is your length of stay?</td></tr>
+            <tr><td>declaration form</td><td>신고서</td><td>Please fill out the declaration form.</td></tr>
+            <tr><td>visa</td><td>비자</td><td>Do you have a valid visa?</td></tr>
+            <tr><td>accommodation</td><td>숙소</td><td>Where is your accommodation?</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-card" id="customs">
+      <div class="section-header color-5">
+        <span class="icon">📦</span>
+        <span>5. 세관 &nbsp;<small style="font-weight:400;opacity:.8">Customs</small></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>영어</th><th>한국어</th><th>예문</th></tr></thead>
+          <tbody>
+            <tr><td>customs</td><td>세관</td><td>Please go through customs.</td></tr>
+            <tr><td>declare</td><td>신고하다</td><td>Do you have anything to declare?</td></tr>
+            <tr><td>duty-free</td><td>면세</td><td>I bought this at the duty-free shop.</td></tr>
+            <tr><td>taxable goods</td><td>과세 물품</td><td>These are taxable goods.</td></tr>
+            <tr><td>receipt</td><td>영수증</td><td>Please show me the receipt.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-card" id="baggage">
+      <div class="section-header color-6">
+        <span class="icon">🎒</span>
+        <span>6. 수하물 찾기 &nbsp;<small style="font-weight:400;opacity:.8">Baggage Claim</small></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>영어</th><th>한국어</th><th>예문</th></tr></thead>
+          <tbody>
+            <tr><td>baggage claim</td><td>수하물 찾는 곳</td><td>Where is the baggage claim area?</td></tr>
+            <tr><td>carousel / belt</td><td>수하물 컨베이어 벨트</td><td>Your bags will arrive on carousel 3.</td></tr>
+            <tr><td>lost baggage</td><td>분실 수하물</td><td>I'd like to report lost baggage.</td></tr>
+            <tr><td>damaged baggage</td><td>파손된 수하물</td><td>My bag was damaged.</td></tr>
+            <tr><td>baggage tag</td><td>수하물 태그</td><td>Do you have your baggage tag?</td></tr>
+            <tr><td>trolley / cart</td><td>짐 카트</td><td>Can I borrow a trolley?</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-card" id="facilities">
+      <div class="section-header color-7">
+        <span class="icon">🏢</span>
+        <span>7. 공항 시설 &nbsp;<small style="font-weight:400;opacity:.8">Airport Facilities</small></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>영어</th><th>한국어</th><th>예문</th></tr></thead>
+          <tbody>
+            <tr><td>departure hall</td><td>출발 홀</td><td>Meet me at the departure hall.</td></tr>
+            <tr><td>arrival hall</td><td>도착 홀</td><td>I'll wait for you at the arrival hall.</td></tr>
+            <tr><td>information desk</td><td>안내 데스크</td><td>Please ask at the information desk.</td></tr>
+            <tr><td>lounge</td><td>라운지</td><td>The business lounge is on the second floor.</td></tr>
+            <tr><td>currency exchange</td><td>환전소</td><td>Where is the currency exchange?</td></tr>
+            <tr><td>ATM</td><td>현금 인출기</td><td>Is there an ATM nearby?</td></tr>
+            <tr><td>restroom / lavatory</td><td>화장실</td><td>Where is the nearest restroom?</td></tr>
+            <tr><td>shuttle bus</td><td>셔틀버스</td><td>Take the shuttle bus to Terminal 2.</td></tr>
+            <tr><td>terminal</td><td>터미널</td><td>Which terminal does my flight depart from?</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-card section-phrases" id="phrases">
+      <div class="section-header color-8">
+        <span class="icon">💬</span>
+        <span>8. 유용한 문장 &nbsp;<small style="font-weight:400;opacity:.8">Useful Phrases</small></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>상황</th><th>영어 표현</th><th>한국어 의미</th></tr></thead>
+          <tbody>
+            <tr><td>길을 모를 때</td><td>Excuse me, where is the gate for flight KE001?</td><td>실례합니다, KE001편 탑승구가 어디인가요?</td></tr>
+            <tr><td>도움 요청</td><td>Could you help me, please?</td><td>도와주실 수 있나요?</td></tr>
+            <tr><td>이해 못했을 때</td><td>Could you repeat that, please?</td><td>다시 말씀해 주시겠어요?</td></tr>
+            <tr><td>천천히 말해달라고</td><td>Could you speak more slowly?</td><td>좀 더 천천히 말씀해 주시겠어요?</td></tr>
+            <tr><td>한국어 가능 여부</td><td>Is there anyone who speaks Korean?</td><td>한국어를 하시는 분이 계신가요?</td></tr>
+            <tr><td>환승할 때</td><td>I have a connecting flight to Tokyo.</td><td>도쿄행 환승 비행기가 있습니다.</td></tr>
+            <tr><td>Wi-Fi 요청</td><td>What is the Wi-Fi password?</td><td>와이파이 비밀번호가 무엇인가요?</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>✈️ 공항 영어 단어장 &nbsp;·&nbsp; 2026</p>
+  </footer>
+
+  <script>
+    const html      = document.documentElement;
+    const checkbox  = document.getElementById('theme-checkbox');
+    const label     = document.getElementById('theme-label');
+    const icon      = document.getElementById('switch-icon');
+
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') applyDark(true);
+
+    checkbox.addEventListener('change', () => applyDark(checkbox.checked));
+
+    function applyDark(on) {
+      html.setAttribute('data-theme', on ? 'dark' : 'light');
+      checkbox.checked = on;
+      label.textContent = on ? '다크 모드' : '라이트 모드';
+      icon.textContent  = on ? '🌙' : '☀️';
+      localStorage.setItem('theme', on ? 'dark' : 'light');
+    }
+  </script>
+
+</body>
+</html>
