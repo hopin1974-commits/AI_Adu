@@ -3,67 +3,257 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>나의 첫 웹페이지</title>
+  <title>나만의 AI 코딩 학습 대시보드</title>
   <style>
-    .cta-section {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 48px 16px;
-      margin: 24px 0;
+    * {
+      box-sizing: border-box;
     }
 
-    .vocab-button {
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+      color: #191f28;
+      background: #f2f4f6;
+      line-height: 1.55;
+      letter-spacing: -0.02em;
+    }
+
+    .dashboard {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px 56px;
+    }
+
+    /* 상단 타이틀 배너 */
+    .hero-banner {
+      margin: 28px 0 36px;
+      padding: 36px 28px;
+      background: linear-gradient(135deg, #1b2a4a 0%, #2d4a7c 48%, #3d6b9e 100%);
+      border-radius: 20px;
+      color: #fff;
+      box-shadow: 0 12px 40px rgba(27, 42, 74, 0.18);
+    }
+
+    .hero-banner .badge {
       display: inline-block;
-      padding: 16px 36px;
-      background: linear-gradient(135deg, #4a90ff 0%, #2563eb 100%);
-      color: #ffffff;
+      margin-bottom: 12px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+    }
+
+    .hero-banner h1 {
+      margin: 0;
+      font-size: clamp(22px, 5vw, 28px);
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-banner p {
+      margin: 14px 0 0;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.78);
+      font-weight: 400;
+    }
+
+    /* 본문 카드 */
+    .section-label {
+      margin: 0 0 16px 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #8b95a1;
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      padding: 24px 26px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .card-icon {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      color: #191f28;
+    }
+
+    .card p {
+      margin: 0 0 10px;
+      font-size: 15px;
+      color: #4e5968;
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 14px;
+      color: #6b7684;
+    }
+
+    .card ul li {
+      margin-bottom: 6px;
+    }
+
+    .card ul li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Git 명령어 어두운 박스 */
+    .code-block {
+      margin-top: 16px;
+      padding: 18px 20px;
+      background: #1e2530;
+      border-radius: 12px;
+      font-family: "Consolas", "Monaco", "Courier New", monospace;
+      font-size: 14px;
+      line-height: 1.85;
+      color: #e8ecf1;
+      user-select: all;
+      -webkit-user-select: all;
+    }
+
+    .code-block .line {
+      display: block;
+      white-space: pre;
+    }
+
+    .code-block .comment {
+      color: #7d8a9a;
+      font-size: 12px;
+      margin-bottom: 10px;
+      display: block;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .code-block .cmd {
+      color: #7dd3fc;
+    }
+
+    .code-hint {
+      margin: 10px 0 0;
+      font-size: 12px;
+      color: #8b95a1;
+    }
+
+    /* 하단 버튼 */
+    .footer-action {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      padding-top: 8px;
+    }
+
+    .btn-vocab {
+      display: inline-block;
+      padding: 18px 36px;
+      background: linear-gradient(180deg, #5ba3ff 0%, #3182f6 55%, #2563eb 100%);
+      color: #fff;
       text-decoration: none;
       font-size: 17px;
       font-weight: 600;
       letter-spacing: -0.02em;
-      border-radius: 14px;
-      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.32);
-      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(49, 130, 246, 0.35);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
-    .vocab-button:hover {
+    .btn-vocab:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.42);
+      box-shadow: 0 8px 24px rgba(49, 130, 246, 0.42);
     }
 
-    .vocab-button:active {
+    .btn-vocab:active {
       transform: translateY(0);
-      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.28);
+      box-shadow: 0 3px 12px rgba(49, 130, 246, 0.3);
     }
   </style>
 </head>
 <body>
 
-  <h1>안녕하세요!</h1>
-  <p>이것은 나의 첫 번째 웹페이지입니다.</p>
+  <div class="dashboard">
 
-  <div class="cta-section">
-    <a href="airport_vocabulary.html" class="vocab-button">공항 영어 단어장 보러가기</a>
+    <header class="hero-banner">
+      <span class="badge">오늘의 학습 기록</span>
+      <h1>최용국의 Generative AI 코딩 실습실 🚀</h1>
+      <p>Cursor와 Git으로 배운 내용을 한눈에 정리한 나만의 대시보드입니다.</p>
+    </header>
+
+    <p class="section-label">TODAY'S NOTES</p>
+
+    <main class="cards">
+
+      <article class="card">
+        <div class="card-header">
+          <span class="card-icon" aria-hidden="true">💻</span>
+          <h2>Cursor AI 작업실</h2>
+        </div>
+        <p>AI와 함께 코드를 작성·수정하는 통합 개발 환경입니다. 자연어로 요청하면 파일을 읽고, 수정하고, 설명까지 해 줍니다.</p>
+        <ul>
+          <li>채팅으로 질문하고 코드 변경을 요청하기</li>
+          <li>Agent 모드로 여러 파일을 한 번에 작업하기</li>
+          <li>터미널·Git 명령 실행까지 IDE 안에서 처리하기</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="card-header">
+          <span class="card-icon" aria-hidden="true">🐙</span>
+          <h2>GitHub 전시관</h2>
+        </div>
+        <p>내 프로젝트를 클라우드에 올려 보관하고, 버전 기록과 함께 전시하는 공간입니다.</p>
+        <ul>
+          <li>저장소(Repository)에 코드 백업 및 협업</li>
+          <li>커밋 히스토리로 변경 이력 추적</li>
+          <li>GitHub Pages 등으로 결과물 공유하기</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="card-header">
+          <span class="card-icon" aria-hidden="true">📦</span>
+          <h2>Git 핵심 명령어 3줄</h2>
+        </div>
+        <p>로컬에서 만든 변경을 GitHub까지 올리는 가장 기본적인 흐름입니다. 아래 세 줄만 익혀도 일상 작업이 가능합니다.</p>
+        <div class="code-block" title="드래그하여 복사">
+          <span class="comment"># 1. 변경 파일 스테이징 → 2. 커밋 → 3. 원격 저장소 푸시</span>
+          <span class="line"><span class="cmd">git add</span> .</span>
+          <span class="line"><span class="cmd">git commit</span> -m "커밋 메시지"</span>
+          <span class="line"><span class="cmd">git push</span></span>
+        </div>
+        <p class="code-hint">박스를 드래그해 선택한 뒤 Ctrl+C로 복사할 수 있습니다.</p>
+      </article>
+
+    </main>
+
+    <footer class="footer-action">
+      <a href="airport_vocabulary.html" class="btn-vocab">✈️ 공항 영어 단어장 보러가기</a>
+    </footer>
+
   </div>
-
-  <h2>나에 대해</h2>
-  <ul>
-    <li>이름: 홍길동</li>
-    <li>취미: 코딩, 독서</li>
-    <li>목표: 웹 개발 배우기</li>
-  </ul>
-
-  <h2>좋아하는 것들</h2>
-  <ol>
-    <li>커피</li>
-    <li>음악</li>
-    <li>여행</li>
-  </ol>
-
-  <hr>
-  <p>연락처: <a href="mailto:hopin1974@gmail.com">이메일 보내기</a></p>
 
 </body>
 </html>
